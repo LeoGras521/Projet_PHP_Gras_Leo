@@ -4,24 +4,21 @@ namespace App\Controller;
 
 use App\Entity\Map;
 use App\Form\MapType;
+use App\Repository\MapRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/map')]
-final class MapController extends AbstractController
+class MapController extends AbstractController
 {
-    #[Route(name: 'app_map_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    #[Route('/', name: 'app_map_index', methods: ['GET'])]
+    public function index(MapRepository $mapRepository): Response
     {
-        $maps = $entityManager
-            ->getRepository(Map::class)
-            ->findAll();
-
         return $this->render('map/index.html.twig', [
-            'maps' => $maps,
+            'maps' => $mapRepository->findAll(),
         ]);
     }
 
@@ -35,6 +32,8 @@ final class MapController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($map);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Map créée avec succès !');
 
             return $this->redirectToRoute('app_map_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -62,6 +61,8 @@ final class MapController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            $this->addFlash('success', 'Map modifiée avec succès !');
+
             return $this->redirectToRoute('app_map_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -74,9 +75,11 @@ final class MapController extends AbstractController
     #[Route('/{id}', name: 'app_map_delete', methods: ['POST'])]
     public function delete(Request $request, Map $map, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$map->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$map->getId(), $request->request->get('_token'))) {
             $entityManager->remove($map);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Map supprimée avec succès !');
         }
 
         return $this->redirectToRoute('app_map_index', [], Response::HTTP_SEE_OTHER);

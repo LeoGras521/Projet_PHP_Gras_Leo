@@ -9,12 +9,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/agent')]
-final class AgentController extends AbstractController
+class AgentController extends AbstractController
 {
-    #[Route(name: 'app_agent_index', methods: ['GET'])]
+    #[Route('/', name: 'app_agent_index', methods: ['GET'])]
     public function index(AgentRepository $agentRepository): Response
     {
         return $this->render('agent/index.html.twig', [
@@ -32,6 +32,8 @@ final class AgentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($agent);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Agent créé avec succès !');
 
             return $this->redirectToRoute('app_agent_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -59,6 +61,8 @@ final class AgentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            $this->addFlash('success', 'Agent modifié avec succès !');
+
             return $this->redirectToRoute('app_agent_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -71,9 +75,11 @@ final class AgentController extends AbstractController
     #[Route('/{id}', name: 'app_agent_delete', methods: ['POST'])]
     public function delete(Request $request, Agent $agent, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$agent->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$agent->getId(), $request->request->get('_token'))) {
             $entityManager->remove($agent);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Agent supprimé avec succès !');
         }
 
         return $this->redirectToRoute('app_agent_index', [], Response::HTTP_SEE_OTHER);
