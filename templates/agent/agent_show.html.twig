@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ agent.name }} - Rainbow Six Siege{% endblock %}
+
+{% block body %}
+<div class="mb-4">
+    <a href="{{ path('app_agent_index') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Retour à la liste
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            {% if agent.image %}
+                <img src="{{ agent.image }}" class="card-img-top" alt="{{ agent.name }}">
+            {% else %}
+                <div class="bg-secondary text-center py-5">
+                    <i class="fas fa-user fa-5x text-white-50"></i>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title mb-3">
+                    {{ agent.name }}
+                    <span class="badge {% if agent.role == 'Attaquant' %}bg-danger{% else %}bg-info{% endif %} fs-6">
+                        {{ agent.role }}
+                    </span>
+                </h1>
+                
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card bg-dark">
+                            <div class="card-body text-center">
+                                <i class="fas fa-running fa-2x text-warning mb-2"></i>
+                                <h5>Vitesse</h5>
+                                <p class="display-6 mb-0">{{ agent.speed }}/3</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card bg-dark">
+                            <div class="card-body text-center">
+                                <i class="fas fa-shield-alt fa-2x text-warning mb-2"></i>
+                                <h5>Armure</h5>
+                                <p class="display-6 mb-0">{{ agent.armor }}/3</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h4 class="mt-4">
+                    <i class="fas fa-cog text-warning"></i> Gadget
+                </h4>
+                <p class="lead">{{ agent.gadget }}</p>
+                
+                <h4 class="mt-4">
+                    <i class="fas fa-info-circle text-warning"></i> Description
+                </h4>
+                <p>{{ agent.description }}</p>
+                
+                {% if app.user %}
+                    <hr class="my-4">
+                    <div class="d-flex gap-2">
+                        <a href="{{ path('app_agent_edit', {'id': agent.id}) }}" class="btn btn-warning">
+                            <i class="fas fa-edit"></i> Modifier
+                        </a>
+                        
+                        <form method="post" action="{{ path('app_agent_delete', {'id': agent.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet agent ?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ agent.id) }}">
+                            <button class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Supprimer
+                            </button>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

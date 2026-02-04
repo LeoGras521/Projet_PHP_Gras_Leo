@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Rainbow Six Siege{% endblock %}
+
+{% block body %}
+<div class="text-center py-5">
+    <h1 class="display-3 mb-4">
+        <i class="fas fa-shield-alt text-warning"></i>
+        Rainbow Six Siege
+    </h1>
+    <p class="lead mb-5">Plateforme de gestion des agents et des maps</p>
+    
+    <div class="row g-4 mt-5">
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body text-center p-5">
+                    <i class="fas fa-users fa-4x mb-3 text-warning"></i>
+                    <h3 class="card-title">Agents</h3>
+                    <p class="card-text">
+                        Découvrez et gérez tous les opérateurs de Rainbow Six Siege. 
+                        Consultez leurs statistiques, gadgets et capacités spéciales.
+                    </p>
+                    <a href="{{ path('app_agent_index') }}" class="btn btn-primary btn-lg mt-3">
+                        <i class="fas fa-arrow-right"></i> Voir les agents
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body text-center p-5">
+                    <i class="fas fa-map fa-4x mb-3 text-warning"></i>
+                    <h3 class="card-title">Maps</h3>
+                    <p class="card-text">
+                        Explorez toutes les cartes disponibles dans le jeu. 
+                        Découvrez leurs localisations, modes de jeu et caractéristiques.
+                    </p>
+                    <a href="{{ path('app_map_index') }}" class="btn btn-primary btn-lg mt-3">
+                        <i class="fas fa-arrow-right"></i> Voir les maps
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body p-5">
+                    <h2 class="card-title mb-4">
+                        <i class="fas fa-info-circle text-warning"></i> 
+                        À propos de Rainbow Six Siege
+                    </h2>
+                    <p class="text-start">
+                        Rainbow Six Siege est un jeu de tir tactique en ligne développé par Ubisoft. 
+                        Le jeu se concentre sur la destruction environnementale et la coopération entre joueurs. 
+                        Chaque joueur assume le contrôle d'un attaquant ou d'un défenseur dans différents modes de jeu 
+                        tels que le sauvetage d'otage, la désactivation de bombe et la sécurisation de zone.
+                    </p>
+                    <p class="text-start mb-0">
+                        Les opérateurs sont issus de différentes unités d'intervention du monde entier, 
+                        chacun possédant des équipements et des gadgets uniques qui peuvent être utilisés 
+                        pour créer des stratégies complexes et dynamiques.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

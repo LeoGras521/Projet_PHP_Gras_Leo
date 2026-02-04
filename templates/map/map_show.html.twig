@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ map.name }} - Rainbow Six Siege{% endblock %}
+
+{% block body %}
+<div class="mb-4">
+    <a href="{{ path('app_map_index') }}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Retour à la liste
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            {% if map.image %}
+                <img src="{{ map.image }}" class="card-img-top" alt="{{ map.name }}">
+            {% else %}
+                <div class="bg-secondary text-center py-5">
+                    <i class="fas fa-map fa-5x text-white-50"></i>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title mb-3">
+                    {{ map.name }}
+                    <span class="badge bg-success fs-6">{{ map.mode }}</span>
+                </h1>
+                
+                <div class="mb-4">
+                    <h5>
+                        <i class="fas fa-map-marker-alt text-warning"></i> 
+                        Localisation
+                    </h5>
+                    <p class="lead">{{ map.location }}</p>
+                </div>
+                
+                <h4 class="mt-4">
+                    <i class="fas fa-info-circle text-warning"></i> Description
+                </h4>
+                <p>{{ map.description }}</p>
+                
+                <div class="card bg-dark mt-4">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-gamepad text-warning"></i> 
+                            Mode de jeu
+                        </h5>
+                        <p class="card-text mb-0">{{ map.mode }}</p>
+                    </div>
+                </div>
+                
+                {% if app.user %}
+                    <hr class="my-4">
+                    <div class="d-flex gap-2">
+                        <a href="{{ path('app_map_edit', {'id': map.id}) }}" class="btn btn-warning">
+                            <i class="fas fa-edit"></i> Modifier
+                        </a>
+                        
+                        <form method="post" action="{{ path('app_map_delete', {'id': map.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette map ?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ map.id) }}">
+                            <button class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Supprimer
+                            </button>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

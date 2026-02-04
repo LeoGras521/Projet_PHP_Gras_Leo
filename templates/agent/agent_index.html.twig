@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Agents - Rainbow Six Siege{% endblock %}
+
+{% block body %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>
+        <i class="fas fa-users text-warning"></i>
+        Liste des Agents
+    </h1>
+    {% if app.user %}
+        <a href="{{ path('app_agent_new') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Nouvel Agent
+        </a>
+    {% endif %}
+</div>
+
+{% if agents|length > 0 %}
+    <div class="row g-4">
+        {% for agent in agents %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    {% if agent.image %}
+                        <img src="{{ agent.image }}" class="card-img-top" alt="{{ agent.name }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <div class="bg-secondary text-center py-5">
+                            <i class="fas fa-user fa-4x text-white-50"></i>
+                        </div>
+                    {% endif %}
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">{{ agent.name }}</h5>
+                        <p class="card-text">
+                            <span class="badge {% if agent.role == 'Attaquant' %}bg-danger{% else %}bg-info{% endif %}">
+                                {{ agent.role }}
+                            </span>
+                        </p>
+                        
+                        <div class="mb-2">
+                            <small>
+                                <i class="fas fa-running"></i> Vitesse: {{ agent.speed }}/3 |
+                                <i class="fas fa-shield-alt"></i> Armure: {{ agent.armor }}/3
+                            </small>
+                        </div>
+                        
+                        <p class="card-text">
+                            <strong>Gadget:</strong> {{ agent.gadget|length > 50 ? agent.gadget|slice(0, 50) ~ '...' : agent.gadget }}
+                        </p>
+                        
+                        <div class="d-flex gap-2 mt-3">
+                            <a href="{{ path('app_agent_show', {'id': agent.id}) }}" class="btn btn-sm btn-primary">
+                                <i class="fas fa-eye"></i> Détails
+                            </a>
+                            {% if app.user %}
+                                <a href="{{ path('app_agent_edit', {'id': agent.id}) }}" class="btn btn-sm btn-warning">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="alert alert-info text-center">
+        <i class="fas fa-info-circle"></i> 
+        Aucun agent enregistré pour le moment.
+        {% if app.user %}
+            <a href="{{ path('app_agent_new') }}" class="alert-link">Créer le premier agent</a>
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}
