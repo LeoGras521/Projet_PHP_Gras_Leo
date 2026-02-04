@@ -12,7 +12,7 @@ class Agent
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-        private ?int $id = null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -26,11 +26,14 @@ class Agent
     #[ORM\Column]
     private ?int $armor = null;
 
-    #[ORM\Column(type: "text")]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $gadget = null;
 
-    #[ORM\Column(type: "text")]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
 
     public function getId(): ?int
     {
@@ -45,7 +48,28 @@ class Agent
     public function setName(?string $name): static
     {
         $this->name = $name;
+        return $this;
+    }
 
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(?string $role): static
+    {
+        $this->role = $role;
+        return $this;
+    }
+
+    public function getSpeed(): ?int
+    {
+        return $this->speed;
+    }
+
+    public function setSpeed(?int $speed): static
+    {
+        $this->speed = $speed;
         return $this;
     }
 
@@ -57,19 +81,6 @@ class Agent
     public function setArmor(?int $armor): static
     {
         $this->armor = $armor;
-
-        return $this;
-    }
-
-    public function getSpeed(): ?int
-    {
-        return $this->armor;
-    }
-
-    public function setSpeed(?int $armor): static
-    {
-        $this->armor = $armor;
-
         return $this;
     }
 
@@ -81,7 +92,6 @@ class Agent
     public function setGadget(?string $gadget): static
     {
         $this->gadget = $gadget;
-
         return $this;
     }
 
@@ -93,19 +103,17 @@ class Agent
     public function setDescription(?string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
-    public function getRole(): ?string
+    public function getImage(): ?string
     {
-        return $this->speed;
+        return $this->image;
     }
 
-    public function setRole(?string $speed): static
+    public function setImage(?string $image): static
     {
-        $this->speed = $speed;
-
+        $this->image = $image;
         return $this;
     }
 }

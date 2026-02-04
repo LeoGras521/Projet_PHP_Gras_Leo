@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
+use App\Repository\MapRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: MapRepository::class)]
 class Map
 {
     #[ORM\Id]
@@ -16,12 +18,12 @@ class Map
     private ?string $name = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $mode = null; // Bomb, Secure Area, Hostage
+    private ?string $mode = null;
 
     #[ORM\Column(length: 255)]
     private ?string $location = null;
 
-    #[ORM\Column(type: "text")]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
     #[ORM\Column(length: 255, nullable: true)]

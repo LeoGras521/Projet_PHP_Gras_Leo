@@ -16,28 +16,29 @@ class AgentRepository extends ServiceEntityRepository
         parent::__construct($registry, Agent::class);
     }
 
-//    /**
-//     * @return Agent[] Returns an array of Agent objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * Trouver tous les agents par rôle
+     */
+    public function findByRole(string $role): array
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.role = :role')
+            ->setParameter('role', $role)
+            ->orderBy('a.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?Agent
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /**
+     * Trouver les agents par vitesse
+     */
+    public function findBySpeed(int $speed): array
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.speed = :speed')
+            ->setParameter('speed', $speed)
+            ->orderBy('a.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }

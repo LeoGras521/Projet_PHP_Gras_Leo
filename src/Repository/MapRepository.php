@@ -16,28 +16,29 @@ class MapRepository extends ServiceEntityRepository
         parent::__construct($registry, Map::class);
     }
 
-//    /**
-//     * @return Map[] Returns an array of Map objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('m.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * Trouver toutes les maps par mode de jeu
+     */
+    public function findByMode(string $mode): array
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.mode = :mode')
+            ->setParameter('mode', $mode)
+            ->orderBy('m.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?Map
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /**
+     * Trouver les maps par localisation
+     */
+    public function findByLocation(string $location): array
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.location LIKE :location')
+            ->setParameter('location', '%' . $location . '%')
+            ->orderBy('m.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }
