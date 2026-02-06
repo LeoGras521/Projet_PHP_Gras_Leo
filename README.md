@@ -3,9 +3,16 @@
 
 ## 📱 Comment utiliser le site
 
-Première étape: Installer php, symfony et composer puis télécharger le dossier le projet sur GitHub ou cloner avec la commande git clone(URL), puis installer xampp.
-Deuxième étape: Télécharger le fichier sql et l'importer sur xampp.
-Troisième étape: Commande pour lancer le serveur symfony: symfony server:start .
+1️⃣ Première étape: Installer php, symfony et composer puis télécharger le dossier le projet sur GitHub ou cloner avec la commande git clone(URL), puis installer xampp.
+2️⃣ Deuxième étape: Importer les données d'exemple
+
+1. Ouvrir **PhpMyAdmin** : `http://localhost/phpmyadmin`
+2. Sélectionner la base de données **projet_php_gras_leo**
+3. Cliquer sur **"Importer"**
+4. Choisir le fichier **sample_data.sql**
+5. Cliquer sur **"Exécuter"**
+   
+3️⃣ Troisième étape: Commande pour lancer le serveur symfony: symfony server:start .
 
 
 ### 1️⃣ Première visite - Créer un compte
@@ -197,15 +204,6 @@ Dans Rainbow Six Siege :
 
 ## 🎓 Pour aller plus loin
 
-### Importer les données d'exemple
-
-Si tu veux tester rapidement avec des agents et maps déjà créés :
-
-1. Ouvrir **PhpMyAdmin** : `http://localhost/phpmyadmin`
-2. Sélectionner la base de données **projet_php_gras_leo**
-3. Cliquer sur **"Importer"**
-4. Choisir le fichier **sample_data.sql**
-5. Cliquer sur **"Exécuter"**
 
 Tu auras alors :
 - ✅ 10 agents (Ash, Thermite, Sledge, Thatcher, IQ, Jäger, Bandit, Mute, Rook, Doc)
@@ -221,4 +219,9 @@ Le site est maintenant prêt à l'emploi. Tu peux :
 - 📊 Comparer les statistiques des opérateurs
 - 🎮 Partager tes connaissances sur le jeu
 
+  ## 📊 Concernant les étapes de développement
+
+  J'ai dans un premier temps installé mon environnement et relié ma base de données avec, ensuite je me suis concentré sur la création de la base de données après le back avec la sécurité et pour finir     le front.
+
 **Bon jeu !** 🎯
+
