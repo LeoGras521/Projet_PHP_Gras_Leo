@@ -7,7 +7,7 @@
 2️⃣ Deuxième étape: Importer les données d'exemple
 
 1. Ouvrir **PhpMyAdmin** : `http://localhost/phpmyadmin`
-2. Sélectionner la base de données **projet_php_gras_leo**
+2. Créer un base de données **projet_php_gras_leo**
 3. Cliquer sur **"Importer"**
 4. Choisir le fichier **sample_data.sql**
 5. Cliquer sur **"Exécuter"**
@@ -224,4 +224,5 @@ Le site est maintenant prêt à l'emploi. Tu peux :
   J'ai dans un premier temps installé mon environnement et relié ma base de données avec, ensuite je me suis concentré sur la création de la base de données après le back avec la sécurité et pour finir     le front.
 
 **Bon jeu !** 🎯
+
 
